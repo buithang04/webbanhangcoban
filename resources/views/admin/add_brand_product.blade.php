@@ -22,7 +22,8 @@
 
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-brand-product')}}" method="post">
+                <form role="form" action="{{URL::to('/save-brand-product')}}" method="post" enctype="multipart/form-data">
+
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên thương hiệu</label>
@@ -35,6 +36,10 @@
                                 
                             </textarea>
                         </div>
+                        <div class="form-group">
+                                    <label for="exampleInputEmail1">Hình ảnh thương hiệu</label>
+                                    <input type="file" class="form-control" name="brand_product_image" id="exampleInputEmail1" required>
+                                </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Hiển thị</label>
                             <select name="brand_product_status" class="form-control input-sm m-bot15">

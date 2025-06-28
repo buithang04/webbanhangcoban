@@ -2,7 +2,7 @@
 @section('content')
 
 <section id="cart_items">
-	<div class="container">
+	
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
 				<li><a href="{{URL::to('/')}}">Trang chủ</a></li>
@@ -89,9 +89,9 @@
 		<form action="{{URL::to('/order-place')}}" method="post">
 			{{ csrf_field() }}
 			<div class="payment-options">
-				<!-- <span>
-					<label><input name="payment_option" value="1" type="radio"> Trả bằng thẻ ATM</label>
-				</span> -->
+				<span>
+					<label><input name="payment_option" value="1" type="radio">Chuyển khoản </label>
+				</span>
 				<span>
 					<label><input name="payment_option" value="2" type="radio"> Tiền mặt</label>
 				</span>
@@ -101,7 +101,7 @@
 			</div>
 		</form>
 
-	</div>
+	
 </section>
 
 @endsection

@@ -25,10 +25,13 @@
                                 <form role="form" action="{{URL::to('/update-customer/'.$edit_value->customer_id)}}" method="post">
                                     {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Tên khách hàngc</label>
+                                    <label for="exampleInputEmail1">Họ và Tên</label>
                                     <input type="text" value="{{$edit_value->customer_name}}"  name="customer_name" class="form-control"  >
                                 </div>
-                                 
+                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="text" value="{{$edit_value->customer_email}}"  name="customer_email" class="form-control"  >
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Mật khẩu</label>
                                     <input type="password" value="{{$edit_value->customer_password}}"  name="customer_password" class="form-control"  >
@@ -37,6 +40,10 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Số điện thoại</label>
                                     <input type="phone" value="{{$edit_value->customer_phone}}"  name="customer_phone" class="form-control"  >
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Địa chỉ</label>
+                                    <input type="phone" value="{{$edit_value->customer_address}}"  name="customer_address" class="form-control"  >
                                 </div>
                                  
                                 <button type="submit" name="update_customer" class="btn btn-info">Cập nhật danh mục</button>

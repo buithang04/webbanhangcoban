@@ -13,7 +13,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/bg.jpg) no-repeat 0px 0px;
+    background: url(../img/bg.jpg) no-repeat 0px 0px;
 	background-size:cover;
 }
 body a{
@@ -63,7 +63,7 @@ body a:hover{
     height:17px;
     width:17px;
     display:inline-block;
-    background:url(../images/nav-expand.png) no-repeat top;
+    background:url(../img/nav-expand.png) no-repeat top;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -71,7 +71,7 @@ body a:hover{
     right:10px;
 }
 .active .dcjq-icon {
-    background:url(../images/nav-expand.png) no-repeat bottom;
+    background:url(../img/nav-expand.png) no-repeat bottom;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -80,7 +80,7 @@ body a:hover{
     height:17px;
     width:17px;
     display:inline-block;
-    background:url(../images/acc-expand.png) no-repeat top;
+    background:url(../img/acc-expand.png) no-repeat top;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
@@ -88,7 +88,7 @@ body a:hover{
     right:10px;
 }
 .right-side-accordion .active .dcjq-icon {
-    background:url(../images/acc-expand.png) no-repeat bottom;
+    background:url(../img/acc-expand.png) no-repeat bottom;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius: 3px;
@@ -469,7 +469,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     width:100%;
 }
 .log-arrow-up {
-    background:url("../images/top-arrow.png") no-repeat;
+    background:url("../img/search-icon.png") no-repeat;
     width:18px;
     height:10px;
     margin-top:-20px;
@@ -551,7 +551,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 }
 /*----*/
 .notify-arrow {
-    background:url("../images/top-arrow.png") no-repeat;
+    background:url("../img/top-arrow.png") no-repeat;
     width:18px;
     height:10px;
     margin-top:0;
@@ -574,7 +574,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     transition: all .3s ease;
     border: 1px solid #8b5c7e;
     box-shadow: none;
-    background: #8b5c7e url(../images/search-icon.png) no-repeat 10px 8px;
+    background: #8b5c7e url(../img/search-icon.png) no-repeat 10px 8px;
     padding: 0 5px 0 30px;
     color: #fff;
     border-radius: 100px;
@@ -3147,4 +3147,6 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     padding: 0;
 }
 }
+
+
 

@@ -25,15 +25,11 @@
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
-            <th style="width:20px;">
-              <label class="i-checks m-b-none">
-                <input type="checkbox"><i></i>
-              </label>
-            </th>
+            
             <th>Tên đăng nhập</th>
             <th>Họ và tên</th>
-            <th>Password</th>
             <th>Số điện thoại</th>
+            <th style="width: 350px;">Địa chỉ</th>
             
            
           </tr>
@@ -42,11 +38,11 @@
           @foreach($all_customer as $key => $pro)
           
           <tr>
-            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+            
             <td>{{$pro->customer_email}}</td>
             <td>{{$pro->customer_name}}</td>
-            <td>{{$pro->customer_password}}</td>
             <td>{{$pro->customer_phone}}</td>
+            <td style="width: 350px;">{{$pro->customer_address}}</td>
             
 
               </span></td>
@@ -66,23 +62,20 @@
       </table>
     </div>
     <footer class="panel-footer">
-      <div class="row">
-
-        <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-        </div>
-        <div class="col-sm-7 text-right text-center-xs">
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
-        </div>
+  <div class="row">
+    <div class="col-sm-5 text-left">
+      <small class="text-muted inline m-t-sm m-b-sm">
+        Hiển thị {{ $all_customer->firstItem() }} - {{ $all_customer->lastItem() }} / {{ $all_customer->total() }} tài khoản
+      </small>
+    </div>
+    <div class="col-sm-7 text-right text-center-xs">
+      <div class="pagination pagination-sm m-t-none m-b-none" style="display:inline-block;">
+        {{ $all_customer->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
       </div>
-    </footer>
+    </div>
+  </div>
+</footer>
+
   </div>
 </div>
 

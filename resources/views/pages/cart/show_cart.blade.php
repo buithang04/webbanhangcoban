@@ -2,10 +2,10 @@
 @section('content')
 
 <section id="cart_items">
-		<div class="container">
+		<div >
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-				  <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
+				  <li><a href="{{URL::to('/trang-chu')}}">Trang chủ</a></li>
 				  <li class="active">Giỏ hàng của bạn</li>
 				</ol>
 			</div>
@@ -20,7 +20,7 @@
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Hình ảnh</td>
-							<td class="description">Mô tả</td>
+							<td class="description">Tên sản phẩm</td>
 							<td class="price">Giá</td>
 							<td class="quantity">Số lượng</td>
 							<td class="total">Tổng tiền</td>
@@ -35,7 +35,7 @@
 							</td>
 							<td class="cart_description" >
 								<h4><a href="">{{$v_content->name}}</a></h4>
-								<p>Web ID: 1089772</p>
+								
 							</td>
 							<td class="cart_price">
 								<p>{{number_format($v_content->price).' VND'}}</p>
@@ -72,7 +72,6 @@
 	</section> <!--/#cart_items-->
 
 	<section id="do_action">
-		<div class="container">
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
@@ -98,6 +97,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
+
 	</section><!--/#do_action-->
 @endsection 

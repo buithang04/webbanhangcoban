@@ -2,32 +2,29 @@
 @section('content')
 @foreach($product_details as $key => $value)
 <div class="product-details"><!--product-details-->
+
+<style>
+.lSSlideOuter .lSPager.lSGallery img {
+    display: block;
+    height: 140px;
+    max-width: 100%;
+}
+li.active {
+    border: 2px solid rgb(255, 162, 0);
+}
+</style>
 	<div class="col-sm-5">
-		<div class="view-product">
-			<img src="{{ asset('public/upload/product/'.$value->product_image) }}" alt="" />
+				<ul id="imageGallery">
+			@foreach($gallery as $key => $gal)
+			<li  data-thumb="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}" data-src="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}">
+			<img width="100%" src="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}" />
+			</li>
+			@endforeach
 			
-		</div>
-		<div id="similar-product" class="carousel slide" data-ride="carousel">
-
+			</ul>
+		
 			
-			<div class="carousel-inner">
-				<div class="item active">
-					<a href=""><img src="{{ asset('public/frontend/img/similar1.jpg') }}" alt=""></a>
-					<a href=""><img src="{{ asset('public/frontend/img/similar2.jpg') }}" alt=""></a>
-					<a href=""><img src="{{ asset('public/frontend/img/similar3.jpg') }}" alt=""></a>
-				</div>
-
-
-			</div>
-
-			<!-- Controls -->
-			<a class="left item-control" href="#similar-product" data-slide="prev">
-				<i class="fa fa-angle-left"></i>
-			</a>
-			<a class="right item-control" href="#similar-product" data-slide="next">
-				<i class="fa fa-angle-right"></i>
-			</a>
-		</div>
+			
 
 	</div>
 	<div class="col-sm-7">
@@ -50,7 +47,7 @@
 					</button>
 				</span>
 			</form>
-			<p><b>Tình trạng:</b> còn hàng</p>
+			<p><b>Số lượng trong kho: </b> {{$value->product_quantity}}</p>
 			<p><b>Điều kiện:</b> Mới</p>
 			<p><b>Thương hiệu:</b> {{$value->brand_name}}</p>
 			<p><b>Danh mục:</b> {{$value->category_name}}</p>
@@ -115,26 +112,27 @@
 	</div><!--/category-tab-->
 	@endforeach
 	<div class="recommended_items"><!--recommended_items-->
+		<br>
 		<h2 class="title text-center">Sản phẩm liên quan</h2>
 
 		<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="item active">
-
 					@foreach($relate as $key => $lienquan)
+					<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}">
 					<div class="col-sm-4">
 						<div class="product-image-wrapper">
 							<div class="single-products">
 								<div class="productinfo text-center">
-									<img src="{{URL::to('public/upload/product/'.$lienquan->product_image)}}" alt="" />
+									<img src="{{URL::to('public/upload/product/'.$lienquan->product_image)}}" alt="" style="height: 250px; width: 200px" />
 									<h2>{{number_format($lienquan->product_price).' VND'}}</h2>
 									<p>{{$lienquan->product_name}}</p>
-									<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
+									<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem Chi tiết</a>
 								</div>
 							</div>
 						</div>
 					</div>
-
+					</a>
 					@endforeach
 				
 				</div>

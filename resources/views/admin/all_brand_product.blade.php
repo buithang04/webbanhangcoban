@@ -7,23 +7,17 @@
       Liệt kê thương hiệu sản phẩm
     </div>
     <div class="row w3-res-tb">
-      <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle">
-          <option value="0">Bulk action</option>
-          <option value="1">Delete selected</option>
-          <option value="2">Bulk edit</option>
-          <option value="3">Export</option>
-        </select>
-        <button class="btn btn-sm btn-default">Apply</button>
-      </div>
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-3">
+      
+    <div class="col-sm-3">
         <div class="input-group">
-          <input type="text" class="input-sm form-control" placeholder="Search">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span>
+          <form method="GET" action="{{ url('/all-brand-product') }}">
+            <div class="input-group">
+              <input type="text" name="search" class="input-sm form-control" placeholder="Tìm sản phẩm..." value="{{ request()->search }}">
+              <span class="input-group-btn">
+                <button class="btn btn-sm btn-default" type="submit">Tìm</button>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -45,12 +39,8 @@
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
-            <th style="width:20px;">
-              <label class="i-checks m-b-none">
-                <input type="checkbox"><i></i>
-              </label>
-            </th>
             <th>Tên thương hiệu</th>
+            <th>Hình ảnh thương hiệu</th>
             <th>Hiển thị</th>
             <th style="width:30px;"></th>
           </tr>
@@ -58,8 +48,8 @@
         <tbody>
           @foreach($all_brand_product as $key => $brand_pro)
           <tr>
-            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{$brand_pro->brand_name}}</td>
+            <td><img src="public/upload/brand/{{$brand_pro->brand_image}}" height="100" width="100"> </td>
             <td><span class="text-ellipsis">
                 <?php
                 if ($brand_pro->brand_status == 1) {
@@ -96,23 +86,20 @@
       </table>
     </div>
     <footer class="panel-footer">
-      <div class="row">
-
-        <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-        </div>
-        <div class="col-sm-7 text-right text-center-xs">
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
-        </div>
+  <div class="row">
+    <div class="col-sm-5 text-left">
+      <small class="text-muted inline m-t-sm m-b-sm">
+        Hiển thị {{ $all_brand_product->firstItem() }} - {{ $all_brand_product->lastItem() }} / {{ $all_brand_product->total() }} tài khoản
+      </small>
+    </div>
+    <div class="col-sm-7 text-right text-center-xs">
+      <div class="pagination pagination-sm m-t-none m-b-none" style="display:inline-block;">
+        {{ $all_brand_product->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
       </div>
-    </footer>
+    </div>
+  </div>
+</footer>
+
   </div>
 </div>
 

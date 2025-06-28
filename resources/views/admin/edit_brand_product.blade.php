@@ -19,14 +19,20 @@
                                 Session::put('message', null);
                             }
                         ?>
+                       
                         <div class="panel-body">
                             @foreach($edit_brand_product as $key => $edit_value)
                             <div class="position-center">
-                                <form role="form" action="{{URL::to('/update-brand-product/'.$edit_value->brand_id)}}" method="post">
+                                <form role="form" action="{{URL::to('/update-brand-product/'.$edit_value->brand_id)}}" method="post" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên thương hiệu</label>
                                     <input type="text" value="{{$edit_value->brand_name}}"  name="brand_product_name" class="form-control"  >
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
+                                    <img src="{{ URL::to('public/upload/brand/'.$edit_value->brand_image)}}" height="100" width="100">
+                                    <input type="file" class="form-control" name="brand_product_image" id="exampleInputEmail1" >
                                 </div>
                                  
                                 <div class="form-group">

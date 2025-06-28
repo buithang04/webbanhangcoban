@@ -6,25 +6,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>BXT shop</title>
-	<link href="{{ asset('public/frontend/css/font-awesome.min.css') }} " rel="stylesheet">
-	<link href="{{ asset('public/frontend/css/prettyPhoto.css') }} " rel="stylesheet">
-	<link href="{{ asset('public/frontend/css/price-range.css') }} " rel="stylesheet">
-	<link href="{{ asset('public/frontend/css/animate.css') }} " rel="stylesheet">
-	<link href="{{ asset('public/frontend/css/main.css') }} " rel="stylesheet">
-	<link href="{{ asset('public/frontend/css/responsive.css') }} " rel="stylesheet">
-	<link href="{{ asset('public/frontend/css/bootstrap.min.css ') }}" rel="stylesheet">
-	<!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-	<link rel="shortcut icon" href="{{ asset('public/frontend/img/ico/favicon.ico') }}">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('public/frontend/img/apple-touch-icon-144-precomposed.png') }}">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('public/frontend/img/apple-touch-icon-114-precomposed.pn') }}g">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('public/frontend/img/apple-touch-icon-72-precomposed.png') }}">
-	<link rel="apple-touch-icon-precomposed" href="{{ asset('public/frontend/img/apple-touch-icon-57-precomposed.png') }}">
-</head><!--/head-->
+	<title>BXT shopper</title>
+	<link href="{{ asset('public/frontend/css/font-awesome.min.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/prettyPhoto.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/price-range.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/animate.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/main.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/responsive.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/bootstrap.min.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/lightslider.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/prettify.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/lightgallery.min.css') }}?v={{ time() }}" rel="stylesheet">
 
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut icon" href="{{ asset('public/frontend/img/ico/favicon.ico') }}">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('public/frontend/img/apple-touch-icon-144-precomposed.png') }}">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('public/frontend/img/apple-touch-icon-114-precomposed.png') }}">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('public/frontend/img/apple-touch-icon-72-precomposed.png') }}">
+<link rel="apple-touch-icon-precomposed" href="{{ asset('public/frontend/img/apple-touch-icon-57-precomposed.png') }}">
+</head><!--/head-->
 <body>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -50,30 +53,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="{{ URL :: to ('/trang-chu') }}"><img src="{{ asset('public/frontend/img/logo.png') }}" alt="" /></a>
-						</div>
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canada</a></li>
-									<li><a href="#">UK</a></li>
-								</ul>
-							</div>
-
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Canadian Dollar</a></li>
-									<li><a href="#">Pound</a></li>
-								</ul>
-							</div>
+							<a href="{{ URL :: to ('/trang-chu') }}"><img style="width: 140px; height: 40px;" src="{{ asset('public/frontend/img/logo1.png') }}" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -101,12 +81,20 @@
 
 
 								<li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-
+								
 								<?php
+								
 								$customer_id =  Session::get('customer_id',);
 								if ($customer_id != null) {
 								?>
-									<li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+									<li><a href="{{URL::to('/customer-edit/'.Session::get('customer_id'))}}"><i class="fa fa-user"></i> Tài khoản</a></li>
+									<li><a href="{{URL::to('/history')}}"><i class="fa fa-list-alt"></i> Lịch sử mua hàng</a></li>
+									<li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a>
+									{{Session::get('customer_name')}}
+								</li>
+									
+
+									
 								<?php
 								} else {
 								?>
@@ -174,39 +162,39 @@
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h1><span>BXT</span>-SHOPPER</h1>
+									<h2>Thiên đường mua sắm</h2>
+									<p>Thiên đường mua sắm trực tuyến dành cho mọi nhu cầu! Tại đây, chúng tôi tự hào mang đến hàng ngàn sản phẩm đa dạng thời trang, mẫu mã đến từ các thương hiệu uy tín </p>
+									
 								</div>
 								<div class="col-sm-6">
-									<img src="{{ asset('public/frontend/img/girl1.jpg') }}" class="girl img-responsive" alt="" />
-									<img src="{{ asset('public/frontend/img/pricing.png') }}" class="pricing" alt="" />
+									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl1.png') }}" class="girl img-responsive" alt="" />
+									
 								</div>
 							</div>
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>100% Responsive Design</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h1><span>BXT</span>-SHOPPER</h1>
+									<h2>Uy tín</h2>
+									<p>Chúng tôi hiểu rằng khi mua sắm trực tuyến, sự tin cậy và uy tín là điều bạn đặt lên hàng đầu. Đó là lý do tại sao chúng tôi luôn nỗ lực xây dựng một nền tảng mà bạn có thể hoàn toàn an tâm khi lựa chọn sản phẩm và thực hiện giao dịch.</p>
+									
 								</div>
 								<div class="col-sm-6">
-									<img src="{{ asset('public/frontend/img/girl2.jpg') }}" class="girl img-responsive" alt="" />
-									<img src="{{ asset('public/frontend/img/pricing.png') }}" class="pricing" alt="" />
+									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl2.png') }}" class="girl img-responsive" alt="" />
+									
 								</div>
 							</div>
 
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free Ecommerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<h1><span>BXT</span>-SHOPPER</h1>
+									<h2>Khách hàng là sự ưu tiên</h2>
+									<p>chúng tôi tin rằng lắng nghe khách hàng không chỉ là một khẩu hiệu, mà là nền tảng cho mọi hoạt động của chúng tôi. Chúng tôi hiểu rằng mỗi ý kiến, mỗi câu hỏi và mỗi phản hồi từ bạn đều vô cùng quý giá. Chính vì vậy, chúng tôi luôn đặt khách hàng làm sự ưu tiên hàng đầu trong mọi quyết định và hành động.</p>
+									
 								</div>
 								<div class="col-sm-6">
-									<img src="{{ asset('public/frontend/img/girl3.jpg') }}" class="girl img-responsive" alt="" />
-									<img src="{{ asset('public/frontend/img/pricing.png') }}" class="pricing" alt="" />
+									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl3.png') }}" class="girl img-responsive" alt="" />
+									
 								</div>
 							</div>
 
@@ -268,161 +256,71 @@
 		</div>
 	</section>
 
-	<footer id="footer"><!--Footer-->
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2">
-						<div class="companyinfo">
-							<h2><span>e</span>-shopper</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
-						</div>
-					</div>
-					<div class="col-sm-7">
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="{{ asset('public/frontend/img/iframe1.png') }}" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
+	<footer id="footer" style="background-color: #f9f9f9; padding: 40px 0; border-top: 1px solid #ddd;">
+    <div class="container">
+        <div class="row">
+            <!-- Logo và giới thiệu -->
+            <div class="col-md-4">
+				<h3 class="text-uppercase" style="color: #B4B1AB;">
+					<strong style="color: #FE980F">BXT</strong><strong>-Shopper</strong></h3>
+                <p style="color: #777;">Chuyên cung cấp thời trang chất lượng, giá cả hợp lý và dịch vụ tận tâm đến mọi khách hàng.</p>
+                <img src="{{ asset('public/frontend/img/logo1.png') }}" alt="Logo Footer" style="max-width: 150px;">
+            </div>
 
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="{{ asset('public/frontend/img/iframe2.png') }}" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
+            <!-- Liên kết nhanh -->
+            <div class="col-md-2">
+                <h5 class="text-uppercase mb-3">Thông tin</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-muted">Về chúng tôi</a></li>
+                    <li><a href="#" class="text-muted">Liên hệ</a></li>
+                    <li><a href="#" class="text-muted">Tin tức</a></li>
+                    <li><a href="#" class="text-muted">Tuyển dụng</a></li>
+                </ul>
+            </div>
 
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="{{ asset('public/frontend/img/iframe3.png') }}" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
+            <!-- Chính sách -->
+            <div class="col-md-2">
+                <h5 class="text-uppercase mb-3">Chính sách</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-muted">Đổi trả hàng</a></li>
+                    <li><a href="#" class="text-muted">Bảo mật</a></li>
+                    <li><a href="#" class="text-muted">Giao hàng</a></li>
+                    <li><a href="#" class="text-muted">Thanh toán</a></li>
+                </ul>
+            </div>
 
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="{{ asset('public/frontend/img/iframe4.png')}}" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="address">
-							<img src="{{ asset('public/frontend/img/map.png')}}" alt="" />
-							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+            <!-- Đăng ký nhận tin -->
+            <div class="col-md-4">
+                <h5 class="text-uppercase mb-3">Đăng ký nhận tin</h5>
+                <form action="#" method="POST">
+                    <div class="input-group mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Nhập email của bạn" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-dark" type="submit">Gửi</button>
+                        </div>
+                    </div>
+                    <small class="text-muted">Chúng tôi sẽ gửi thông tin khuyến mãi & cập nhật mới nhất đến bạn.</small>
+                </form>
+            </div>
+        </div>
 
-		<div class="footer-widget">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Service</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Online Help</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Order Status</a></li>
-								<li><a href="#">Change Location</a></li>
-								<li><a href="#">FAQ’s</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Quock Shop</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">T-Shirt</a></li>
-								<li><a href="#">Mens</a></li>
-								<li><a href="#">Womens</a></li>
-								<li><a href="#">Gift Cards</a></li>
-								<li><a href="#">Shoes</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Policies</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Privecy Policy</a></li>
-								<li><a href="#">Refund Policy</a></li>
-								<li><a href="#">Billing System</a></li>
-								<li><a href="#">Ticket System</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>About Shopper</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Company Information</a></li>
-								<li><a href="#">Careers</a></li>
-								<li><a href="#">Store Location</a></li>
-								<li><a href="#">Affillate Program</a></li>
-								<li><a href="#">Copyright</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<div class="single-widget">
-							<h2>About Shopper</h2>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Get the most recent updates from <br />our site and be updated your self...</p>
-							</form>
-						</div>
-					</div>
+        <hr>
 
-				</div>
-			</div>
-		</div>
+        <!-- Bản quyền -->
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted mb-0">&copy; {{ date('Y') }} BXT-Shopper. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <a href="#" class="text-muted ml-2"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook  </a>
 
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row">
-				</div>
-			</div>
-		</div>
+                <a href="#" class="text-muted ml-2">  <i class="fa fa-instagram" aria-hidden="true"></i> Instagram</a>
 
-	</footer><!--/Footer-->
+            </div>
+        </div>
+    </div>
+</footer>
+
 
 
 
@@ -432,6 +330,28 @@
 	<script src="{{ asset('public/frontend/js/price-range.js')}}"></script>
 	<script src="{{ asset('public/frontend/js/jquery.prettyPhoto.js')}}"></script>
 	<script src="{{ asset('public/frontend/js/main.js')}}"></script>
+	<script src="{{ asset('public/frontend/js/lightslider.js')}}"></script>
+	<script src="{{ asset('public/frontend/js/prettify.js')}}"></script>
+	<script src="{{ asset('public/frontend/js/lightgallery-all.min.js')}}"></script>
+
+	<script>
+		 $(document).ready(function() {
+    $('#imageGallery').lightSlider({
+        gallery:true,
+        item:1,
+        loop:true,
+        thumbItem:3,
+        slideMargin:0,
+        enableDrag: false,
+        currentPagerPosition:'left',
+        onSliderLoad: function(el) {
+            el.lightGallery({
+                selector: '#imageGallery .lslide'
+            });
+        }   
+    });  
+  });
+	</script>
 </body>
 
 </html>

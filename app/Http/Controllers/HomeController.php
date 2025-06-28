@@ -20,35 +20,37 @@ class HomeController extends Controller
         // ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
         // ->orderby('product_id','desc')->get();
 
-        $all_product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->limit(4)->get();
+        $all_product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->paginate(12); 
 
         return view('pages.home')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product);
     }
 
     public function search(Request $request)
-{
-    $keywords = $request->keywords_submit;
-
-    $cate_product = DB::table('tbl_category_product')
-        ->where('category_status', '1')
-        ->orderby('category_id', 'desc')
-        ->get();
-
-    $brand_product = DB::table('tbl_brand')
-        ->where('brand_status', '1')
-        ->orderby('brand_id', 'desc')
-        ->get();
-
+    {
+        $keywords = trim($request->keywords_submit);
     
-    $search_product = DB::table('tbl_product')
-        ->where('product_name', 'like', '%' . $keywords . '%')
-        ->limit(3) 
-        ->get();
-
-    return view('pages.sanpham.search')
-        ->with('category', $cate_product)
-        ->with('brand', $brand_product)
-        ->with('search_product', $search_product);
-}
+        $cate_product = DB::table('tbl_category_product')
+            ->where('category_status', '1')
+            ->orderBy('category_id', 'desc')
+            ->get();
+    
+        $brand_product = DB::table('tbl_brand')
+            ->where('brand_status', '1')
+            ->orderBy('brand_id', 'desc')
+            ->get();
+    
+        $search_product = DB::table('tbl_product')
+            ->where('product_status', 1) 
+            ->where('product_name', 'like', '%' . $keywords . '%')
+            ->take(3)
+            ->get();
+    
+        return view('pages.sanpham.search', [
+            'category' => $cate_product,
+            'brand' => $brand_product,
+            'search_product' => $search_product
+        ]);
+    }
+    
 
 }

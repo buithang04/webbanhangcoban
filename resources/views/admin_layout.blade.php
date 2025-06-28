@@ -14,6 +14,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
 <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap.min.css')}}" >
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- //bootstrap-css -->
 <!-- Custom CSS -->
 <link href=" {{ asset('public/backend/css/style.css') }}" rel='stylesheet' type='text/css' />
@@ -41,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-    <a href="index.html" class="logo">
+    <a href="{{ url('/dashboard') }}" class="logo">
         admin
     </a>
     <div class="sidebar-toggle-box">
@@ -53,9 +54,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="top-nav clearfix">
     <!--search & user info start-->
     <ul class="nav pull-right top-menu">
-        <li>
-            <input type="text" class="form-control search" placeholder=" Search">
-        </li>
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -71,8 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class=" fa fa-suitcase"></i>Tài khoản</a></li>
                 <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li>
             </ul>
         </li>
@@ -143,7 +140,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>sản phẩm</span>
+                        <span>Sản phẩm</span>
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm </a></li>
@@ -161,17 +158,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<section class="wrapper">
 		@yield('admin_content')
 		
-</section>
- <!-- footer -->
-		  <div class="footer">
-			<div class="wthree-copyright">
-			</div>
-		  </div>
-  <!-- / footer -->
-</section>
 <!--main content end-->
 </section>
-<script src=" {{ asset('public/backend/js/bootstrap.js') }}"></>
+<script src=" {{ asset('public/backend/js/bootstrap.js') }}"></script>
 <script src=" {{ asset('public/backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
 <script src=" {{ asset('public/backend/js/scripts.js') }}"></script>
 <script src="{{ asset('public/backend/js/jquery.slimscroll.js') }} "></script>
@@ -265,6 +254,124 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		});
 	</script>
+
+<script>
+    $(document).ready(function(){
+
+        // thêm gallery
+        load_gallery();
+
+        function load_gallery(){
+            var pro_id = $('.pro_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "{{ url('/select-gallery') }}",
+                method: "POST",
+                data: { pro_id: pro_id, _token: _token },
+                success: function(data){
+                    $('#gallery_load').html(data); 
+                }
+            });
+        }
+
+        $('#file').change(function () {
+    var error = '';
+    var files = $('#file')[0].files; 
+    if (files.length > 5) {
+        error += '<p>Bạn chỉ được chọn tối đa 5 ảnh.</p>';
+    } else if (files.length === 0) {
+        error += '<p>Bạn chưa chọn ảnh nào.</p>';
+    } else {
+        for (var i = 0; i < files.length; i++) {
+            if (files[i].size > 2000000) {
+                error += '<p>Ảnh "' + files[i].name + '" lớn hơn 2MB.</p>';
+            }
+        }
+    }
+    if (error === '') {
+        $('#error_gallery').html('');
+    } else {
+        $('#file').val('');
+        $('#error_gallery').html('<span class="text-danger">' + error + '</span>');
+        return false;
+    }
+});
+
+//chỉnh sửa tên gallery
+$(document).on('blur', '.edit_gal_name', function () {
+    var gal_id = $(this).data('gal_id');
+    var gal_text = $(this).text();
+    var _token = $('input[name="_token"]').val();
+
+    $.ajax({
+        url: "{{ url('/update-gallery-name') }}",
+        method: "POST",
+        data: { gal_id: gal_id, gal_text: gal_text, _token: _token },
+        success: function (data) {
+            load_gallery(); 
+            $('#error_gallery').html('<span class="text-success">Cập nhật tên hình ảnh thành công</span>');
+        }
+    });
+});
+//xóa gallery
+$(document).on('click', '.delete-gallery', function () {
+    var gal_id = $(this).data('gal_id');
+    var _token = $('input[name="_token"]').val();
+    if(confirm('Bạn có muốn xóa ảnh này hay không?')){
+            $.ajax({
+                url: "{{ url('/delete-gallery') }}",
+                method: "POST",
+                data: { gal_id: gal_id, _token: _token },
+                success: function (data) {
+                    load_gallery(); 
+                    $('#error_gallery').html('<span class="text-success">Xóa hình ảnh thành công</span>');
+                }
+            });
+    }
+});
+//chỉnh sửa từng gallery
+$(document).on('change', '.file_image', function () {
+    var gal_id = $(this).data('gal_id');
+    var input = document.getElementById('file-' + gal_id);
+    var image = input.files[0];
+    var form_data = new FormData();
+    form_data.append("file", image);
+    form_data.append("gal_id", gal_id);
+
+    if (confirm('Bạn có chắc muốn cập nhật ảnh này không?')) {
+        $.ajax({
+            url: "{{ url('/update-gallery') }}",
+            method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (data) {
+                if (data.success) {
+                    load_gallery();
+                    $('#error_gallery').html('<span class="text-success">' + data.message + '</span>');
+                } else {
+                    $('#error_gallery').html('<span class="text-danger">' + data.message + '</span>');
+                }
+            },
+            error: function (xhr) {
+                $('#error_gallery').html('<span class="text-danger">Lỗi cập nhật ảnh</span>');
+                console.log(xhr.responseText);
+            }
+        });
+    }
+});
+
+
+
+
+    });
+</script>
+
 	<!-- //calendar -->
 </body>
 </html>

@@ -6,9 +6,13 @@ use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PayOSController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,13 +41,31 @@ Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
 Route::get('/logout', [AdminController::class, 'logout']);
 Route::match(['get', 'post'], '/admin-dashboard', [AdminController::class, 'dashboard']);
 
+//login google
+Route::get('/login-google', [LoginController::class, 'login_google']);
+Route::get('/google/callback', [LoginController::class, 'callback_google']);
+
+
+//login google by customer
+Route::get('/login-customer-google', [AdminController::class, 'login_customer_google']);
+Route::get('/customer/google/callback', [AdminController::class, 'callback_customer_google']);
+
+
+
+
 //customer
-
-
 Route::get('/edit-customer/{customer_id}', [CustomersController::class, 'edit_customer']);
 Route::get('/delete-customer/{customer_id}', [CustomersController::class, 'delete_customer']);
 Route::get('/all-customer', [CustomersController::class, 'all_customer']);
 Route::post('/update-customer/{customer_id}', [CustomersController::class, 'update_customer']);
+Route::get('/history', [CustomersController::class, 'history']);
+Route::get('/view-history-order/{orderId}', [CustomersController::class, 'view_history_order']);
+// Khách hàng tự chỉnh sử thông tin
+Route::get('/customer-edit/{customer_id}', [CustomersController::class, 'customer_edit']);
+Route::post('/customer-update/{customer_id}', [CustomersController::class, 'customer_update']);
+
+
+
 
 
 
@@ -104,9 +126,12 @@ Route::post('/login-customer', [CheckoutController::class, 'login_customer']);
 Route::post('/order-place', [CheckoutController::class, 'order_place']);
 
 Route::post('/add-customer', [CheckoutController::class, 'add_customer']);
-Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::get('/payment', [CheckoutController::class, 'payment']);
 Route::post('/save-checkout-customer', [CheckoutController::class, 'save_checkout_customer']);
+Route::get('/checkout', [CheckoutController::class, 'checkout']);
+
+
+
 
 //order
 Route::get('/manage-order', [CheckoutController::class, 'manage_order']);
@@ -114,5 +139,20 @@ Route::get('/delete-order/{orderId}', [CheckoutController::class, 'delete_order'
 Route::get('/view-order/{orderId}', [CheckoutController::class, 'view_order']);
 Route::post('/update-order-status', [CheckoutController::class, 'update_order_status'])->name('update.order.status');
 
+//gallery
+Route::get('/add-gallery/{product_id}', [GalleryController::class, 'add_gallery']);
+Route::post('/select-gallery', [GalleryController::class, 'select_gallery']);
+Route::post('/insert-gallery/{pro_id}', [GalleryController::class, 'insert_gallery']);
+Route::post('/update-gallery-name', [GalleryController::class, 'update_gallery_name']);
+Route::post('/delete-gallery', [GalleryController::class, 'delete_gallery']);
+Route::post('/update-gallery', [GalleryController::class, 'update_gallery']);
 
 
+
+//payos
+Route::get('/payos/create', [PayOSController::class, 'create']);
+Route::get('/checkout-success', [PayOSController::class, 'paymentSuccess']);
+Route::get('/checkout-cancel', [PayOSController::class, 'paymentCancel']);
+Route::post('/payos/webhook', [PayOSController::class, 'webhook']);
+
+Route::post('/payos/webhook', [PayOSController::class, 'webhook']);
