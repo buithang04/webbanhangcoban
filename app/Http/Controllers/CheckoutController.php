@@ -338,7 +338,7 @@ public function order_place(Request $request)
         if ($result) {
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_name', $result->customer_name);
-            return Redirect::to('/checkout');
+            return Redirect::to('/trang-chu');
         } else {
             return Redirect::to('/login-checkout')->with('error', 'Email hoặc mật khẩu không đúng');
         }

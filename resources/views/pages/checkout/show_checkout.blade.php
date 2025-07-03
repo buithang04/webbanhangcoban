@@ -44,7 +44,7 @@
 								{{ old('shipping_notes') }}
 								</textarea>
 
-								<button type="submit" class="btn btn-primary btn-sm">Gửi đơn hàng</button>
+								<button type="submit" class="btn btn-primary btn-sm">Chuyển đến thanh toán</button>
 							</form>
 
 						</div>

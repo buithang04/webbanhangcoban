@@ -13,7 +13,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../img/bg.jpg) no-repeat 0px 0px;
+    background: url(../img/pngtree-red-gold-business-high-end-opening-atmosphere-golden-light-lines-background-image_15529006.png) no-repeat 0px 0px;
 	background-size:cover;
 }
 body a{
@@ -219,7 +219,7 @@ ul.sidebar-menu li a.active i {
     left:0;
     right:0;
     z-index:1002;
-    background:rgb(240, 188, 180);
+    background:rgb(206 65 44);
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
@@ -239,7 +239,7 @@ ul.sidebar-menu li a.active i {
     width:100%;
 }
 .brand {
-    background:#8b5c7e;
+    background:#a91102;
     float:left;
     width:240px;
     height:80px;
@@ -273,7 +273,7 @@ ul.top-menu {
     margin-top: 0;
 }
 ul.top-menu > li > a {
-    color: #fff;
+    color: #000000;
     font-size: 16px;
     background: #8b5c7e;
     padding: 4px 8px;
@@ -507,7 +507,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     background: none;
     margin-right: 0;
     border: 1px solid #8b5c7e;
-    background: #8b5c7e;
+    background: #ffffff;
 }
 .top-nav ul.top-menu>li.language>a {
     margin-top:-2px;
@@ -601,7 +601,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     float:left;
     margin-top:23px;
     margin-left:-15px;
-    background:#8b5c7e;
+    background:#e00858;
     border-radius:50%;
     -webkit-border-radius:50%;
     width:32px;
@@ -2358,7 +2358,7 @@ ul.inbox-pagination li {
 }
 /*-- gallery --*/
 .w3layouts-main h2 {
-	color: #8b5c7e;
+	color: #ffffff;
     font-size: 29px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -2368,7 +2368,7 @@ ul.inbox-pagination li {
 .w3layouts-main {
     width: 30%;
     margin:5em auto;
-    background:rgba(171, 119, 157, 0.27);
+    background:rgb(171 119 119 / 96%);
     padding: 42px 35px;
 }
 /*--//header--*/
@@ -2408,7 +2408,7 @@ input.ggg{
 	-ms-transition:0.5s all;
 }
 .w3layouts-main a:hover{
-	color:#f0bcb4;
+	color:#670f02;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-o-transition:0.5s all;
@@ -2420,7 +2420,7 @@ input.ggg{
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: #f0bcb4;
+    background: #f65137;
     color: white;
     border: none;
     outline: none;
@@ -2434,7 +2434,7 @@ input.ggg{
     -ms-transition: 0.5s all;
 }
 .w3layouts-main input[type="submit"]:hover {
-	background:#8b5c7e;
+	background:#b62a15;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-o-transition:0.5s all;

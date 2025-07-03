@@ -84,11 +84,11 @@
 								$customer_id =  Session::get('customer_id',);
 								if ($customer_id != null) {
 								?>
-									<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Thanh toán</a>
+									<a class="btn btn-default check_out" href="{{URL::to('/checkout')}}">Điền thông tin gửi hàng</a>
 								<?php
 								} else {
 								?>
-									<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Thanh toán</a>
+									<a class="btn btn-default check_out" href="{{URL::to('/login-checkout')}}">Điền thông tin gửi hàng</a>
 								<?php
 
 								}
