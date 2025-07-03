@@ -4,7 +4,7 @@
 <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Liệt kê danh mục sản phẩm
+      Danh sách danh mục sản phẩm
     </div>
     <div class="row w3-res-tb">
     <div class="input-group">

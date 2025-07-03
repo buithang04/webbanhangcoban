@@ -4,7 +4,7 @@
 <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Liệt kê thương hiệu sản phẩm
+      Danh sách thương hiệu sản phẩm
     </div>
     <div class="row w3-res-tb">
       

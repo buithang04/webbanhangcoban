@@ -99,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Đơn hàng</span>
                     </a>
                     <ul class="sub">
-						<li><a href="{{URL::to('/manage-order')}}">Quản lý đơn hàng</a></li>
+						<li><a href="{{URL::to('/manage-order')}}">Danh sách đơn hàng</a></li>
 					
                     </ul>
                 </li>
@@ -110,7 +110,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Tài khoản khách hàng</span>
                     </a>
                     <ul class="sub">
-						<li><a href="{{URL::to('/all-customer')}}">Tài khoản</a></li>
+						<li><a href="{{URL::to('/all-customer')}}">Danh sách tài khoản</a></li>
 					
                     </ul>
                 </li>
@@ -122,7 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-category-product')}}">Thêm danh mục sản phẩm </a></li>
-						<li><a href="{{URL::to('/all-category-product')}}">Liệt kê danh mục sản phẩm</a></li>
+						<li><a href="{{URL::to('/all-category-product')}}">Danh sách danh mục sản phẩm</a></li>
                     </ul>
                 </li>
 
@@ -133,7 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-brand-product')}}">Thêm thương hiệu sản phẩm </a></li>
-						<li><a href="{{URL::to('/all-brand-product')}}">Liệt kê thương hiệu sản phẩm</a></li>
+						<li><a href="{{URL::to('/all-brand-product')}}">Danh sách thương hiệu sản phẩm</a></li>
                     </ul>
                 </li>
 
@@ -144,7 +144,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm </a></li>
-						<li><a href="{{URL::to('/all-product')}}">Liệt kê sản phẩm</a></li>
+						<li><a href="{{URL::to('/all-product')}}">Danh sách sản phẩm</a></li>
                     </ul>
                 </li>
                 <li>

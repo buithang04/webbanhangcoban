@@ -4,7 +4,7 @@
 <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Liệt kê tài khoản
+      Danh sách tài khoản
     </div>
     
     <div class="table-responsive">
