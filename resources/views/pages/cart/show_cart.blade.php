@@ -6,15 +6,13 @@
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="{{URL::to('/trang-chu')}}">Trang chủ</a></li>
-				  <li class="active">Giỏ hàng của bạn</li>
+				  <li class="">Giỏ hàng của bạn</li>
 				</ol>
 			</div>
 			<div class="table-responsive cart_info">
                 <?php
-
                 use Gloudemans\Shoppingcart\Facades\Cart;
                 $content = Cart::content();
-                
                 ?>
 				<table class="table table-condensed">
 					<thead>

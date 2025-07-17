@@ -17,7 +17,7 @@
 						<p>
 							{{$product->product_name}}
 						</p>
-						<a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem Chi tiết</a>
+						<a href="{{URL::to('/chi-tiet-san-pham/'.$product->product_id)}}" class="btn btn-default "><i class="fa fa-shopping-cart"></i>Xem Chi tiết</a>
 					</div>
 
 				</div>

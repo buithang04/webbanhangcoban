@@ -7,7 +7,13 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>BXT shopper</title>
-	<link href="{{ asset('public/frontend/css/font-awesome.min.css') }}?v={{ time() }}" rel="stylesheet">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
+	<link rel="icon" type="image/svg+xml" href="{{ asset('favicon/favicon.svg') }}">
+	<link rel="shortcut icon" href="{{ asset('favicon/favicon.ico') }}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
+	<link rel="manifest" href="{{ asset('site.webmanifest') }}">
+<link href="{{ asset('public/frontend/css/font-awesome.min.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/prettyPhoto.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/price-range.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/animate.css') }}?v={{ time() }}" rel="stylesheet">

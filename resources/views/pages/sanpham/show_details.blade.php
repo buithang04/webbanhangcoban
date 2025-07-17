@@ -84,29 +84,45 @@ li.active {
 
 
 
-		<div class="tab-pane fade " id="reviews">
-			<div class="col-sm-12">
-				<ul>
-					<li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-					<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-					<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-				</ul>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-				<p><b>Write Your Review</b></p>
+		<div class="tab-pane fade" id="reviews">
+    <div class="col-sm-12">
+        <!-- Thông tin người đánh giá -->
+        <ul class="list-inline">
+            <li><i class="fa fa-user"></i> Nguyễn Văn A</li>
+            <li><i class="fa fa-clock-o"></i> 14:35</li>
+            <li><i class="fa fa-calendar-o"></i> 17/07/2025</li>
+        </ul>
 
-				<form action="#">
-					<span>
-						<input type="text" placeholder="Your Name" />
-						<input type="email" placeholder="Email Address" />
-					</span>
-					<textarea name=""></textarea>
-					<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-					<button type="button" class="btn btn-default pull-right">
-						Submit
-					</button>
-				</form>
-			</div>
-		</div>
+        <!-- Nội dung đánh giá -->
+        <p>
+            Sản phẩm chất lượng tốt, giao hàng nhanh và đóng gói cẩn thận. Tôi rất hài lòng với dịch vụ của shop. 
+            Sẽ tiếp tục ủng hộ trong những lần mua hàng tiếp theo.
+        </p>
+
+        <!-- Tiêu đề form -->
+        <p><strong>Gửi đánh giá của bạn</strong></p>
+
+        <!-- Form đánh giá -->
+        <form action="#" method="POST">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Họ tên của bạn" required />
+                </div>
+                <div class="col-sm-6 form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Địa chỉ email" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="review" class="form-control" rows="4" placeholder="Nội dung đánh giá" required></textarea>
+            </div>
+
+            
+
+            <button type="submit" class="btn btn-primary pull-right">Gửi đánh giá</button>
+        </form>
+    </div>
+</div>
+
 
 
 	</div><!--/category-tab-->
@@ -127,7 +143,7 @@ li.active {
 									<img src="{{URL::to('public/upload/product/'.$lienquan->product_image)}}" alt="" style="height: 250px; width: 200px" />
 									<h2>{{number_format($lienquan->product_price).' VND'}}</h2>
 									<p>{{$lienquan->product_name}}</p>
-									<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem Chi tiết</a>
+									<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}" class="btn btn-default "><i class="fa fa-shopping-cart"></i>Xem Chi tiết</a>
 								</div>
 							</div>
 						</div>
