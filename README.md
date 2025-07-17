@@ -41,7 +41,7 @@
 
 ## ⚙️ Hướng dẫn cài đặt
 
-### 1. Clone dự án
+### 
 
 ```bash
 git clone https://github.com/buithang04/webbanhangcoban.git
