@@ -34,7 +34,6 @@
 | Frontend         | Blade + Bootstrap |
 | Database         | MySQL             |
 | Package OAuth    | Laravel Socialite |
-| Gửi email        | SMTP              |
 | Local server     | XAMPP             |
 
 ---
@@ -55,4 +54,4 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 5. Khởi động server
-php artisan serve
+chạy trên XAMPP
