@@ -1,58 +1,107 @@
+# BXT-shopper
+
+Website thương mại điện tử thời trang được xây dựng bằng Laravel. Project mô phỏng một cửa hàng trực tuyến hoàn chỉnh với catalog sản phẩm, thương hiệu, giỏ hàng, đặt hàng và khu vực quản trị.
+
+## Tổng quan
+
+BXT-shopper sử dụng giao diện tối giản đen–trắng, typography thống nhất và bố cục responsive cho desktop/mobile. Catalog hiện có 50 sản phẩm mẫu, hình ảnh sản phẩm được lưu trong `public/upload/product` và dữ liệu MySQL được đóng gói trong `shopquanao.sql`.
+## Hình ảnh minh họa
+
 <p align="center">
-  <a href="https://laravel.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
-  </a>
+  <img src="public/frontend/img/girl1.png" alt="BXT-shopper" width="31%" />
+  <img src="public/upload/product/1905086_ELMM_197.webp" alt="Sản phẩm thời trang" width="31%" />
+  <img src="public/frontend/img/adidas.png" alt="Thương hiệu" width="31%" />
 </p>
+## Cài đặt trên Windows/XAMPP
 
-<h2 align="center">🛒 Website Bán Hàng Cơ Bản - Laravel Project</h2>
-
-<p align="center">
-  Một dự án website bán hàng đơn giản, sử dụng Laravel framework. Hỗ trợ đặt hàng, quản lý sản phẩm, đơn hàng, người dùng và thanh toán.
-</p>
-
----
-
-## 🚀 Tính năng nổi bật
-
-- 🔐 Đăng ký / Đăng nhập cho khách hàng và quản trị viên
-- 🔑 Đăng nhập bằng Google
-- 📦 Quản lý sản phẩm, danh mục, thương hiệu
-- 🛒 Giỏ hàng và đặt hàng
-- 💳 Thanh toán: tiền mặt, chuyển khoản PayOS
-- 📧 Gửi email xác nhận đơn hàng
-- 📊 Thống kê tổng đơn hàng, doanh thu, người dùng
-- 🧾 Lịch sử mua hàng khách hàng
-- 🧑‍💼 Quản trị toàn diện dành cho admin
-
----
-
-## 🛠️ Công nghệ sử dụng
-
-| Thành phần       | Công nghệ         |
-|------------------|-------------------|
-| Backend          | Laravel 10.x      |
-| Frontend         | Blade + Bootstrap |
-| Database         | MySQL             |
-| Package OAuth    | Laravel Socialite |
-| Local server     | XAMPP             |
-
----
-
-## ⚙️ Hướng dẫn cài đặt
-
-### 
+### 1. Clone project
 
 ```bash
 git clone https://github.com/buithang04/webbanhangcoban.git
 cd webbanhangcoban
-2. Cài đặt Composer & NPM
+```
+
+### 2. Cài dependency
+
+```bash
 composer install
-npm install && npm run dev
-3. Tạo file .env và cấu hình
-cp .env.example .env
-4. Tạo khóa ứng dụng và migrate CSDL
+npm install
+```
+
+### 3. Tạo file môi trường
+
+```bash
+copy .env.example .env
 php artisan key:generate
-php artisan migrate --seed
-5. Khởi động server
-chạy trên XAMPP
+```
+
+Mở `.env` và cấu hình MySQL:
+
+```env
+APP_URL=http://localhost/webbanhangcoban
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=shopquanao
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 4. Tạo database MySQL
+
+1. Mở XAMPP Control Panel và Start Apache, MySQL.
+2. Mở [phpMyAdmin](http://localhost/phpmyadmin).
+3. Tạo database `shopquanao` với charset `utf8mb4`.
+4. Import file `shopquanao.sql`.
+
+Hoặc dùng command line:
+
+```bash
+mysql -u root -p -e "CREATE DATABASE shopquanao CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p shopquanao < shopquanao.sql
+```
+
+### 5. Chạy project
+
+Nếu dùng XAMPP, đặt project trong `C:\xampp\htdocs` và truy cập:
+
+```text
+http://localhost/webbanhangcoban/
+```
+
+Nếu chạy Laravel development server:
+
+```bash
+php artisan serve
+```
+
+Mở `http://127.0.0.1:8000`.
+
+Trong một terminal khác, chạy Vite khi cần phát triển frontend:
+
+```bash
+npm run dev
+```
+
+Build frontend production:
+
+```bash
+npm run build
+```
+
+## Lệnh hữu ích
+
+```bash
+php artisan route:list
+php artisan optimize:clear
+php artisan view:cache
+php artisan test
+```
+
+
+## Tác giả
+
+**buithang04**
+
+Repository: [github.com/buithang04/webbanhangcoban](https://github.com/buithang04/webbanhangcoban)
 
