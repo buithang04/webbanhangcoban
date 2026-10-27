@@ -5,13 +5,7 @@ Website thương mại điện tử thời trang được xây dựng bằng Lar
 ## Tổng quan
 
 BXT-shopper sử dụng giao diện tối giản đen–trắng, typography thống nhất và bố cục responsive cho desktop/mobile. Catalog hiện có 50 sản phẩm mẫu, hình ảnh sản phẩm được lưu trong `public/upload/product` và dữ liệu MySQL được đóng gói trong `shopquanao.sql`.
-## Hình ảnh minh họa
 
-<p align="center">
-  <img src="public/frontend/img/girl1.png" alt="BXT-shopper" width="31%" />
-  <img src="public/upload/product/1905086_ELMM_197.webp" alt="Sản phẩm thời trang" width="31%" />
-  <img src="public/frontend/img/adidas.png" alt="Thương hiệu" width="31%" />
-</p>
 ## Cài đặt trên Windows/XAMPP
 
 ### 1. Clone project
