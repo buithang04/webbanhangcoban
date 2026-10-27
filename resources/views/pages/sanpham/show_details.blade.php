@@ -9,30 +9,31 @@
     height: 140px;
     max-width: 100%;
 }
-li.active {
-    border: 2px solid rgb(255, 162, 0);
-}
+li.active { border: 2px solid #18181b; }
 </style>
 	<div class="col-sm-5">
-				<ul id="imageGallery">
+				<ul id="imageGallery">			@if($gallery->isNotEmpty())
 			@foreach($gallery as $key => $gal)
-			<li  data-thumb="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}" data-src="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}">
-			<img width="100%" src="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}" />
+			<li data-thumb="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}" data-src="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}">
+			<img width="100%" src="{{ asset('public/upload/gallery/'.$gal->gallery_image) }}" alt="{{$value->product_name}}" />
 			</li>
 			@endforeach
-			
+			@else
+			<li data-thumb="{{ URL::to('public/upload/product/'.$value->product_image) }}" data-src="{{ URL::to('public/upload/product/'.$value->product_image) }}">
+			<img width="100%" src="{{ URL::to('public/upload/product/'.$value->product_image) }}" alt="{{$value->product_name}}" />
+			</li>
+			@endif
+
 			</ul>
-		
-			
-			
+
+
+
 
 	</div>
 	<div class="col-sm-7">
 		<div class="product-information"><!--/product-information-->
-			<img src="images/product-details/new.jpg" class="newarrival" alt="" />
 			<h2>{{$value->product_name}}</h2>
 			<p>Mã ID: {{$value->product_id}}</p>
-			<img src="images/product-details/rating.png" alt="" />
 
 			<form action="{{URL::to('/save-cart')}}" method="post">
 				{{@csrf_field()}}
@@ -51,7 +52,6 @@ li.active {
 			<p><b>Điều kiện:</b> Mới</p>
 			<p><b>Thương hiệu:</b> {{$value->brand_name}}</p>
 			<p><b>Danh mục:</b> {{$value->category_name}}</p>
-			<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
 		</div><!--/product-information-->
 	</div>
 </div><!--/product-details-->
@@ -95,7 +95,7 @@ li.active {
 
         <!-- Nội dung đánh giá -->
         <p>
-            Sản phẩm chất lượng tốt, giao hàng nhanh và đóng gói cẩn thận. Tôi rất hài lòng với dịch vụ của shop. 
+            Sản phẩm chất lượng tốt, giao hàng nhanh và đóng gói cẩn thận. Tôi rất hài lòng với dịch vụ của shop.
             Sẽ tiếp tục ủng hộ trong những lần mua hàng tiếp theo.
         </p>
 
@@ -116,7 +116,7 @@ li.active {
                 <textarea name="review" class="form-control" rows="4" placeholder="Nội dung đánh giá" required></textarea>
             </div>
 
-            
+
 
             <button type="submit" class="btn btn-primary pull-right">Gửi đánh giá</button>
         </form>
@@ -135,12 +135,12 @@ li.active {
 			<div class="carousel-inner">
 				<div class="item active">
 					@foreach($relate as $key => $lienquan)
-					<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}">
+					<div class="product-card-link">
 					<div class="col-sm-4">
 						<div class="product-image-wrapper">
 							<div class="single-products">
 								<div class="productinfo text-center">
-									<img src="{{URL::to('public/upload/product/'.$lienquan->product_image)}}" alt="" style="height: 250px; width: 200px" />
+									<img src="{{URL::to('public/upload/product/'.$lienquan->product_image)}}" alt="{{$lienquan->product_name}}" style="height: 250px; width: 200px" />
 									<h2>{{number_format($lienquan->product_price).' VND'}}</h2>
 									<p>{{$lienquan->product_name}}</p>
 									<a href="{{URL::to('/chi-tiet-san-pham/'.$lienquan->product_id)}}" class="btn btn-default "><i class="fa fa-shopping-cart"></i>Xem Chi tiết</a>
@@ -148,9 +148,9 @@ li.active {
 							</div>
 						</div>
 					</div>
-					</a>
+					</div>
 					@endforeach
-				
+
 				</div>
 			</div><!--/recommended_items-->
 		</div>

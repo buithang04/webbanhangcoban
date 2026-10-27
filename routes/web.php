@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 // frontend
-Route::get('/',['HomeController'] );
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/trang-chu', [HomeController::class, 'index']);
 Route::post('/tim-kiem', [HomeController::class, 'search']);
 

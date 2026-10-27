@@ -8,8 +8,6 @@ use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
-session_start();
-
 class CartController extends Controller
 {
     public function save_cart(Request $request){

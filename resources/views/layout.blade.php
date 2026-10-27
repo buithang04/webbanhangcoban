@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>BXT shopper</title>
+	<title>BXT-shopper</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
 	<link rel="icon" type="image/svg+xml" href="{{ asset('favicon/favicon.svg') }}">
@@ -23,6 +23,7 @@
 <link href="{{ asset('public/frontend/css/lightslider.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/prettify.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/lightgallery.min.css') }}?v={{ time() }}" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/bxt-shopper.css') }}?v=11" rel="stylesheet">
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
@@ -34,7 +35,8 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('public/frontend/img/apple-touch-icon-72-precomposed.png') }}">
 <link rel="apple-touch-icon-precomposed" href="{{ asset('public/frontend/img/apple-touch-icon-57-precomposed.png') }}">
 </head><!--/head-->
-<body>
+<body class="{{ (Request::is('/') || Request::is('trang-chu')) ? 'bxt-home' : 'bxt-inner' }}">
+	<a class="bxt-skip-link" href="#main-content">Bỏ qua đến nội dung chính</a>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -48,7 +50,7 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
-						
+
 					</div>
 				</div>
 			</div>
@@ -59,13 +61,13 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="{{ URL :: to ('/trang-chu') }}"><img style="width: 140px; height: 40px;" src="{{ asset('public/frontend/img/logo1.png') }}" alt="" /></a>
+							<a href="{{ URL :: to ('/trang-chu') }}" class="brand-mark" aria-label="BXT-shopper">BXT<span>-shopper</span></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-							
+
 								<!-- <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li> -->
 
 								<?php
@@ -81,15 +83,15 @@
 
 								}
 								?>
-								
+
 
 
 
 
 								<li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-								
+
 								<?php
-								
+
 								$customer_id =  Session::get('customer_id',);
 								if ($customer_id != null) {
 								?>
@@ -98,9 +100,9 @@
 									<li><a href="{{URL::to('/logout-checkout')}}"><i class="fa fa-lock"></i> Đăng xuất</a>
 									{{Session::get('customer_name')}}
 								</li>
-									
 
-									
+
+
 								<?php
 								} else {
 								?>
@@ -130,12 +132,12 @@
 							</button>
 						</div>
 						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
+							<ul class="nav navbar-nav collapse navbar-collapse" aria-label="Điều hướng chính">
 								<li><a href="{{ URL :: to ('/trang-chu') }}" class="active">Trang chủ</a></li>
 								<li class="dropdown"><a href="{{ URL :: to ('/trang-chu') }}">Sản phẩm<i class="fa fa-angle-down"></i></a>
 								</li>
-							
-								
+
+
 							</ul>
 						</div>
 					</div>
@@ -144,7 +146,7 @@
 							{{@csrf_field()}}
 
 							<div class="search_box pull-right">
-								<input type="text" name="keywords_submit" placeholder="Tìm kiếm" />
+								<input type="search" name="keywords_submit" placeholder="Tìm kiếm sản phẩm" aria-label="Tìm kiếm sản phẩm" />
 								<input type="submit" style="margin-top:0; color:black" name="search_items" class="btn btn-primary btn-sm" value="Tìm kiếm"/>
 							</div>
 						</form>
@@ -168,50 +170,46 @@
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="col-sm-6">
-									<h1><span>BXT</span>-SHOPPER</h1>
+									<h1><span>BXT</span>-shopper</h1>
 									<h2>Thiên đường mua sắm</h2>
 									<p>Thiên đường mua sắm trực tuyến dành cho mọi nhu cầu! Tại đây, chúng tôi tự hào mang đến hàng ngàn sản phẩm đa dạng thời trang, mẫu mã đến từ các thương hiệu uy tín </p>
-									
+
 								</div>
 								<div class="col-sm-6">
-									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl1.png') }}" class="girl img-responsive" alt="" />
-									
+									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl1.png') }}" class="girl img-responsive" alt="Thời trang BXT-shopper" />
+
 								</div>
 							</div>
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>BXT</span>-SHOPPER</h1>
+									<h1><span>BXT</span>-shopper</h1>
 									<h2>Uy tín</h2>
 									<p>Chúng tôi hiểu rằng khi mua sắm trực tuyến, sự tin cậy và uy tín là điều bạn đặt lên hàng đầu. Đó là lý do tại sao chúng tôi luôn nỗ lực xây dựng một nền tảng mà bạn có thể hoàn toàn an tâm khi lựa chọn sản phẩm và thực hiện giao dịch.</p>
-									
+
 								</div>
 								<div class="col-sm-6">
-									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl2.png') }}" class="girl img-responsive" alt="" />
-									
+									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl2.png') }}" class="girl img-responsive" alt="Thời trang BXT-shopper" />
+
 								</div>
 							</div>
 
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>BXT</span>-SHOPPER</h1>
+									<h1><span>BXT</span>-shopper</h1>
 									<h2>Khách hàng là sự ưu tiên</h2>
 									<p>chúng tôi tin rằng lắng nghe khách hàng không chỉ là một khẩu hiệu, mà là nền tảng cho mọi hoạt động của chúng tôi. Chúng tôi hiểu rằng mỗi ý kiến, mỗi câu hỏi và mỗi phản hồi từ bạn đều vô cùng quý giá. Chính vì vậy, chúng tôi luôn đặt khách hàng làm sự ưu tiên hàng đầu trong mọi quyết định và hành động.</p>
-									
+
 								</div>
 								<div class="col-sm-6">
-									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl3.png') }}" class="girl img-responsive" alt="" />
-									
+									<img style="width: 484px; height: 441px;" src="{{ asset('public/frontend/img/girl3.png') }}" class="girl img-responsive" alt="Thời trang BXT-shopper" />
+
 								</div>
 							</div>
 
 						</div>
 
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
+						<button type="button" class="left control-carousel hidden-xs" data-target="#slider-carousel" data-slide="prev" aria-label="Slide trước"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+						<button type="button" class="right control-carousel hidden-xs" data-target="#slider-carousel" data-slide="next" aria-label="Slide tiếp theo"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
 					</div>
 
 				</div>
@@ -219,7 +217,7 @@
 		</div>
 	</section><!--/slider-->
 
-	<section>
+	<section id="main-content" tabindex="-1">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">
@@ -267,10 +265,9 @@
         <div class="row">
             <!-- Logo và giới thiệu -->
             <div class="col-md-4">
-				<h3 class="text-uppercase" style="color: #B4B1AB;">
-					<strong style="color: #FE980F">BXT</strong><strong>-Shopper</strong></h3>
+				<h3 class="text-uppercase brand-mark">BXT<span>-shopper</span></h3>
                 <p style="color: #777;">Chuyên cung cấp thời trang chất lượng, giá cả hợp lý và dịch vụ tận tâm đến mọi khách hàng.</p>
-                <img src="{{ asset('public/frontend/img/logo1.png') }}" alt="Logo Footer" style="max-width: 150px;">
+                <div class="footer-signature" aria-label="BXT-shopper">BXT-shopper</div>
             </div>
 
             <!-- Liên kết nhanh -->
@@ -354,10 +351,14 @@
             el.lightGallery({
                 selector: '#imageGallery .lslide'
             });
-        }   
-    });  
+        }
+    });
   });
 	</script>
 </body>
 
 </html>
+
+
+
+

@@ -7,8 +7,6 @@ use DB;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-
-session_start();
 class BrandProduct extends Controller
 {
     public function AuthLogin(){

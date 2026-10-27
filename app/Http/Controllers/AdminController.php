@@ -10,9 +10,6 @@ use App\Http\Requests;
 use App\Models\Customer;
 use App\Models\SocialCustomer;
 use Illuminate\Support\Facades\Redirect;
-
-session_start();
-
 class AdminController extends Controller
 {     
 

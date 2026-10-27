@@ -9,9 +9,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
-
-session_start();
-
 class CheckoutController extends Controller
 {
     public function AuthLogin()
