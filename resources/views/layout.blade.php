@@ -7,11 +7,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>BXT-shopper</title>
-	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
-	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon/favicon-96x96.png') }}">
-	<link rel="icon" type="image/svg+xml" href="{{ asset('favicon/favicon.svg') }}">
-	<link rel="shortcut icon" href="{{ asset('favicon/favicon.ico') }}">
-	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
+	<link rel="icon" type="image/svg+xml" sizes="any" href="{{ asset('favicon/bxt.svg') }}?v=3">
+	<meta name="theme-color" content="#09090b">
 	<link rel="manifest" href="{{ asset('site.webmanifest') }}">
 <link href="{{ asset('public/frontend/css/font-awesome.min.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/prettyPhoto.css') }}?v={{ time() }}" rel="stylesheet">
@@ -23,13 +20,12 @@
 <link href="{{ asset('public/frontend/css/lightslider.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/prettify.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/lightgallery.min.css') }}?v={{ time() }}" rel="stylesheet">
-<link href="{{ asset('public/frontend/css/bxt-shopper.css') }}?v=11" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/bxt-shopper.css') }}?v=12" rel="stylesheet">
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
 <script src="js/respond.min.js"></script>
 <![endif]-->
-<link rel="shortcut icon" href="{{ asset('public/frontend/img/ico/favicon.ico') }}">
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('public/frontend/img/apple-touch-icon-144-precomposed.png') }}">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('public/frontend/img/apple-touch-icon-114-precomposed.png') }}">
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('public/frontend/img/apple-touch-icon-72-precomposed.png') }}">

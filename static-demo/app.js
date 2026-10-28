@@ -19,9 +19,13 @@ const products = [
 ];
 let slideIndex = 0;
 const hero = document.querySelector('.hero');
+const heroInner = document.querySelector('.hero-inner');
+const heroCopy = document.querySelector('.hero-copy');
+const heroVisual = document.querySelector('.hero-visual');
 const heroImage = document.getElementById('hero-image');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let slideTimer;
+let slideAnimations = [];
 slides.forEach(({ image }) => { const preloadedImage = new Image(); preloadedImage.src = image; });
 function applySlide(index) {
   const slide = slides[index];
@@ -35,15 +39,57 @@ function applySlide(index) {
 function showSlide(index) {
   const nextIndex = (index + slides.length) % slides.length;
   if (nextIndex === slideIndex && !slideTimer) return;
+  const direction = nextIndex === (slideIndex - 1 + slides.length) % slides.length ? -1 : 1;
+  if (slideTimer) {
+    window.clearTimeout(slideTimer);
+    document.querySelectorAll('.hero-inner > .incoming').forEach(element => element.remove());
+    slideAnimations.forEach(animation => animation.cancel());
+    slideAnimations = [];
+    applySlide(slideIndex);
+    heroCopy.inert = false;
+    slideTimer = undefined;
+  }
   slideIndex = nextIndex;
-  window.clearTimeout(slideTimer);
-  if (reducedMotion.matches) { hero.classList.remove('is-exiting'); applySlide(slideIndex); slideTimer = undefined; return; }
-  hero.classList.add('is-exiting');
+  if (reducedMotion.matches) { applySlide(slideIndex); return; }
+
+  const slide = slides[slideIndex];
+  const incomingCopy = heroCopy.cloneNode(true);
+  incomingCopy.classList.add('incoming');
+  incomingCopy.removeAttribute('aria-live');
+  incomingCopy.removeAttribute('id');
+  incomingCopy.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+  incomingCopy.querySelector('.eyebrow').textContent = slide.kicker;
+  incomingCopy.querySelector('h1').textContent = slide.title;
+  incomingCopy.querySelector('h2').textContent = slide.subtitle;
+  incomingCopy.querySelector('p:not(.eyebrow)').textContent = slide.description;
+  incomingCopy.inert = true;
+
+  const incomingVisual = heroVisual.cloneNode(true);
+  incomingVisual.classList.add('incoming');
+  const incomingImage = incomingVisual.querySelector('img');
+  incomingImage.removeAttribute('id');
+  incomingImage.src = slide.image;
+  incomingVisual.setAttribute('aria-hidden', 'true');
+  heroCopy.inert = true;
+  heroInner.append(incomingCopy, incomingVisual);
+
+  const distance = direction * 100;
+  const timing = { duration: 620, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'forwards' };
+  slideAnimations = [
+    heroCopy.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${-distance}%)` }], timing),
+    heroVisual.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${-distance}%)` }], timing),
+    incomingCopy.animate([{ transform: `translateX(${distance}%)` }, { transform: 'translateX(0)' }], timing),
+    incomingVisual.animate([{ transform: `translateX(${distance}%)` }, { transform: 'translateX(0)' }], timing)
+  ];
   slideTimer = window.setTimeout(() => {
     applySlide(slideIndex);
-    hero.classList.remove('is-exiting');
+    incomingCopy.remove();
+    incomingVisual.remove();
+    slideAnimations.forEach(animation => animation.cancel());
+    slideAnimations = [];
+    heroCopy.inert = false;
     slideTimer = undefined;
-  }, 220);
+  }, timing.duration);
 }
 document.querySelector('.hero-arrow.previous').addEventListener('click', () => showSlide(slideIndex - 1));
 document.querySelector('.hero-arrow.next').addEventListener('click', () => showSlide(slideIndex + 1));
