@@ -89,18 +89,26 @@ class PayOSController extends Controller
         }
     }
 
-    public function paymentSuccess()
+    public function paymentSuccess(Request $request)
     {
         $customer_id = Session::get('customer_id');
-
+        $code = $request->query('orderCode');
+        if (!$customer_id || !ctype_digit((string) $code)) abort(403);
         $order = DB::table('tbl_order')
             ->where('customer_id', $customer_id)
-            ->orderBy('order_id', 'desc')
+            ->where('payos_order_code', $code)
             ->first();
-
-            $this->sendOrderMail($order->order_id);
-            
-            Cart::destroy();
+        if (!$order) abort(404);
+        try {
+            $payment = $this->payOS->getPaymentLinkInformation($code);
+        } catch (\Throwable $e) {
+            return redirect('/payment')->with('error', 'Chưa thể xác minh giao dịch.');
+        }
+        if (($payment['status'] ?? '') !== 'PAID' || (int) ($payment['amount'] ?? 0) !== (int) $order->order_total) {
+            return redirect('/payment')->with('error', 'Giao dịch chưa được xác nhận.');
+        }
+        DB::table('tbl_payment')->where('payment_id', $order->payment_id)->update(['payment_status' => 1]);
+        Cart::destroy();
         
 
         $cate_product = DB::table('tbl_category_product')->where('category_status', '1')->orderby('category_id', 'desc')->get();
@@ -115,6 +123,23 @@ class PayOSController extends Controller
         $brand_product = DB::table('tbl_brand')->where('brand_status', '1')->orderby('brand_id', 'desc')->get();
 
         return view('pages.checkout.cancel')->with('category', $cate_product)->with('brand', $brand_product);
+    }
+
+    public function webhook(Request $request)
+    {
+        try {
+            $data = $this->payOS->verifyWebhook($request->all());
+            $code = $data['orderCode'] ?? null;
+            if ($code && ($data['code'] ?? null) === '00') {
+                $order = DB::table('tbl_order')->where('payos_order_code', $code)->first();
+                if ($order && (int) ($data['amount'] ?? 0) === (int) $order->order_total) {
+                    DB::table('tbl_payment')->where('payment_id', $order->payment_id)->update(['payment_status' => 1]);
+                }
+            }
+            return response()->json(['success' => true]);
+        } catch (\Throwable $e) {
+            return response()->json(['success' => false], 400);
+        }
     }
 
     protected function sendOrderMail($order_id)

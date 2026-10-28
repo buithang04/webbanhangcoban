@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 class CheckoutController extends Controller
 {
     public function AuthLogin()
@@ -60,7 +62,7 @@ class CheckoutController extends Controller
         'customer_phone' => $request->customer_phone,
         'customer_email' => $request->customer_email,
         'customer_address' => $request->customer_address,
-        'customer_password' => md5($request->customer_password),
+        'customer_password' => Hash::make($request->customer_password),
     ];
 
     $customer_id = DB::table('tbl_customers')->insertGetId($data);
@@ -219,8 +221,15 @@ class CheckoutController extends Controller
 
 public function order_place(Request $request)
 {
-    if (!$request->has('payment_option')) {
-        return redirect()->back()->with('error', 'Vui lòng chọn phương thức thanh toán');
+    $request->validate(['payment_option' => 'required|in:1,2']);
+    if (!Session::get('customer_id') || !Session::get('shipping_id') || Cart::content()->isEmpty()) {
+        return redirect('/checkout')->with('error', 'Vui lòng đăng nhập, nhập địa chỉ và thêm sản phẩm.');
+    }
+    foreach (Cart::content() as $line) {
+        $product = DB::table('tbl_product')->where('product_id', $line->id)->where('product_status', 1)->first();
+        if (!$product || (int) $line->qty < 1 || (int) $line->qty > $product->product_quantity) {
+            return redirect('/show-cart')->with('error', 'Giỏ hàng có sản phẩm không hợp lệ hoặc vượt tồn kho.');
+        }
     }
 
     $payment_method = $request->payment_option;
@@ -237,7 +246,7 @@ public function order_place(Request $request)
     $order_date = Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s');
     $title_mail = "Đơn hàng xác nhận ngày " . $today;
 
-    $checkout_code = substr(md5(microtime()), rand(0, 26), 5);
+    $checkout_code = Str::upper(Str::random(12));
     $order_data = [
         'customer_id' => Session::get('customer_id'),
         'shipping_id' => Session::get('shipping_id'),
@@ -328,11 +337,17 @@ public function order_place(Request $request)
     public function login_customer(Request $request)
     {
         $email = $request->email_account;
-        $password =  md5($request->password_account);
+        $request->validate(['email_account' => 'required|email', 'password_account' => 'required|string']);
+        $password = $request->password_account;
 
-        $result = DB::table('tbl_customers')->where('customer_email', $email)->where('customer_password', $password)->first();
+        $result = DB::table('tbl_customers')->where('customer_email', $email)->first();
 
-        if ($result) {
+        if ($result && (Hash::check($password, $result->customer_password) ||
+            (strlen($result->customer_password) === 32 && hash_equals($result->customer_password, md5($password))))) {
+            if (strlen($result->customer_password) === 32) {
+                DB::table('tbl_customers')->where('customer_id', $result->customer_id)
+                    ->update(['customer_password' => Hash::make($password)]);
+            }
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_name', $result->customer_name);
             return Redirect::to('/trang-chu');
@@ -409,85 +424,35 @@ public function order_place(Request $request)
 
     public function update_order_status(Request $request)
 {
-    $order_id = $request->order_id;
-    $order_status = $request->order_status;
-
-    $order = DB::table('tbl_order')->where('order_id', $order_id)->first();
-    if (!$order) {
-        return back()->with('message', 'Không tìm thấy đơn hàng.');
-    }
-
-    $old_status = $order->order_status;
-
-    if ($order_status != $old_status) {
-        $order_details = DB::table('tbl_order_details')->where('order_id', $order_id)->get();
-
-        if ($order_status == 1 && $old_status != 1) {
-            
-            $insufficient_products = [];
-            foreach ($order_details as $detail) {
-                $product = DB::table('tbl_product')->where('product_id', $detail->product_id)->first();
-                if (!$product || $product->product_quantity < $detail->product_sales_quantity) {
-                    $insufficient_products[] = $detail->product_name;
+    $validated = $request->validate(['order_id' => 'required|integer|min:1', 'order_status' => 'required|in:1,2']);
+    $order_id = $validated['order_id'];
+    $order_status = $validated['order_status'];
+    try {
+        DB::transaction(function () use ($order_id, $order_status) {
+            $order = DB::table('tbl_order')->where('order_id', $order_id)->lockForUpdate()->first();
+            if (!$order) throw new \RuntimeException('Không tìm thấy đơn hàng.');
+            if ((int) $order->order_status === (int) $order_status) return;
+            $details = DB::table('tbl_order_details')->where('order_id', $order_id)->orderBy('product_id')->get();
+            if ($details->isEmpty()) throw new \RuntimeException('Đơn hàng không có sản phẩm.');
+            foreach ($details as $item) {
+                if ($item->product_sales_quantity < 1) throw new \RuntimeException('Số lượng sản phẩm không hợp lệ.');
+                $product = DB::table('tbl_product')->where('product_id', $item->product_id)->lockForUpdate()->first();
+                if (!$product) throw new \RuntimeException('Sản phẩm không còn tồn tại: '.$item->product_name);
+                if ((int) $order_status === 1) {
+                    if ($product->product_quantity < $item->product_sales_quantity) throw new \RuntimeException('Không đủ hàng: '.$item->product_name);
+                    DB::table('tbl_product')->where('product_id', $item->product_id)->decrement('product_quantity', $item->product_sales_quantity);
+                } elseif ((int) $order->order_status === 1) {
+                    DB::table('tbl_product')->where('product_id', $item->product_id)->increment('product_quantity', $item->product_sales_quantity);
                 }
             }
-
-            if (!empty($insufficient_products)) {
-                return back()->with('message', 'Không đủ hàng cho các sản phẩm: ' . implode(', ', $insufficient_products));
-            }
-
-           
-            foreach ($order_details as $detail) {
-                DB::table('tbl_product')->where('product_id', $detail->product_id)
-                    ->decrement('product_quantity', $detail->product_sales_quantity);
-            }
-
-            
-            $shipping_info = DB::table('tbl_shipping')->where('shipping_id', $order->shipping_id)->first();
-            $customer_info = DB::table('tbl_customers')->where('customer_id', $order->customer_id)->first();
-
-            $shipping_array = [
-                'customer_name' => $customer_info->customer_name ?? 'Khách hàng',
-                'shipping_email' => $shipping_info->shipping_email ?? '',
-                'shipping_name' => $shipping_info->shipping_name ?? '',
-                'shipping_address' => $shipping_info->shipping_address ?? '',
-                'shipping_phone' => $shipping_info->shipping_phone ?? '',
-                'shipping_notes' => $shipping_info->shipping_notes ?? '',
-                'payment_method' => $order->payment_id 
-            ];
-
-            $cart_array = [];
-            foreach ($order_details as $item) {
-                $cart_array[] = [
-                    'product_name' => $item->product_name,
-                    'product_price' => $item->product_price,
-                    'product_qty' => $item->product_sales_quantity
-                ];
-            }
-
-            $title_mail = "Đơn hàng đã được xác nhận ngày " . Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s');
-
-            Mail::send('pages.mail.confirm_order', [
-                'shipping_array' => $shipping_array,
-                'code' => ['order_code' => $order->order_code],
-                'cart_array' => $cart_array,
-            ], function ($message) use ($title_mail, $shipping_info) {
-                $message->to($shipping_info->shipping_email)->subject($title_mail);
-            });
-
-        } elseif ($order_status == 2 && $old_status == 1) {
-            foreach ($order_details as $detail) {
-                DB::table('tbl_product')->where('product_id', $detail->product_id)
-                    ->increment('product_quantity', $detail->product_sales_quantity);
-            }
-        }
+            DB::table('tbl_order')->where('order_id', $order_id)->update(['order_status' => (string) $order_status]);
+        });
+    } catch (\RuntimeException $e) {
+        return back()->with('message', $e->getMessage());
     }
-
-    DB::table('tbl_order')->where('order_id', $order_id)
-        ->update(['order_status' => $order_status]);
-
     return back()->with('message', 'Cập nhật trạng thái đơn hàng thành công!');
 }
+
 
 
 }

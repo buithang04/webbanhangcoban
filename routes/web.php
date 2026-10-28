@@ -37,10 +37,9 @@ Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'detail
 
 // backend
 Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
-Route::get('/logout', [AdminController::class, 'logout']);
 Route::match(['get', 'post'], '/admin-dashboard', [AdminController::class, 'dashboard']);
-
+Route::get('/dashboard', [AdminController::class, 'show_dashboard'])->middleware('shop.admin');
+Route::get('/logout', [AdminController::class, 'logout'])->middleware('shop.admin');
 //login google
 Route::get('/login-google', [LoginController::class, 'login_google']);
 Route::get('/google/callback', [LoginController::class, 'callback_google']);
@@ -53,11 +52,13 @@ Route::get('/customer/google/callback', [AdminController::class, 'callback_custo
 
 
 
+Route::middleware('shop.admin')->group(function () {
 //customer
 Route::get('/edit-customer/{customer_id}', [CustomersController::class, 'edit_customer']);
 Route::get('/delete-customer/{customer_id}', [CustomersController::class, 'delete_customer']);
 Route::get('/all-customer', [CustomersController::class, 'all_customer']);
 Route::post('/update-customer/{customer_id}', [CustomersController::class, 'update_customer']);
+});
 Route::get('/history', [CustomersController::class, 'history']);
 Route::get('/view-history-order/{orderId}', [CustomersController::class, 'view_history_order']);
 // Khách hàng tự chỉnh sử thông tin
@@ -69,6 +70,7 @@ Route::post('/customer-update/{customer_id}', [CustomersController::class, 'cust
 
 
 
+Route::middleware('shop.admin')->group(function () {
 //category Product
 Route::get('/add-category-product', [CategoryProduct::class, 'add_category_product']);
 Route::get('/edit-category-product/{category_product_id}', [CategoryProduct::class, 'edit_category_product']);
@@ -109,6 +111,7 @@ Route::get('/active-product/{product_id}', [ProductController::class, 'active_pr
 
 Route::post('/save-product', [ProductController::class, 'save_product']);
 Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
+});
 
 //cart
 Route::post('/save-cart', [CartController::class, 'save_cart']);
@@ -133,6 +136,7 @@ Route::get('/checkout', [CheckoutController::class, 'checkout']);
 
 
 
+Route::middleware('shop.admin')->group(function () {
 //order
 Route::get('/manage-order', [CheckoutController::class, 'manage_order']);
 Route::get('/delete-order/{orderId}', [CheckoutController::class, 'delete_order']);
@@ -146,6 +150,7 @@ Route::post('/insert-gallery/{pro_id}', [GalleryController::class, 'insert_galle
 Route::post('/update-gallery-name', [GalleryController::class, 'update_gallery_name']);
 Route::post('/delete-gallery', [GalleryController::class, 'delete_gallery']);
 Route::post('/update-gallery', [GalleryController::class, 'update_gallery']);
+});
 
 
 
@@ -153,6 +158,4 @@ Route::post('/update-gallery', [GalleryController::class, 'update_gallery']);
 Route::get('/payos/create', [PayOSController::class, 'create']);
 Route::get('/checkout-success', [PayOSController::class, 'paymentSuccess']);
 Route::get('/checkout-cancel', [PayOSController::class, 'paymentCancel']);
-Route::post('/payos/webhook', [PayOSController::class, 'webhook']);
-
 Route::post('/payos/webhook', [PayOSController::class, 'webhook']);

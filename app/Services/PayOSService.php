@@ -35,6 +35,12 @@ class PayOSService
     public function verifyWebhook(array $data)
     {
         $this->ensureConfigured();
-        return $this->payOS->verifyWebhookData($data);
+        return $this->payOS->verifyPaymentWebhookData($data);
+    }
+
+    public function getPaymentLinkInformation(string|int $orderCode): array
+    {
+        $this->ensureConfigured();
+        return $this->payOS->getPaymentLinkInformation($orderCode);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class CustomersController extends Controller
 {
@@ -37,7 +38,7 @@ class CustomersController extends Controller
         $data = array();
         $data['customer_name'] = $request->customer_name;
         $data['customer_email'] = $request->customer_email;
-        $data['customer_password'] = md5($request->customer_password);
+        if ($request->filled('customer_password')) $data['customer_password'] = Hash::make($request->customer_password);
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_address'] = $request->customer_address;
         DB::table('tbl_customers')->where('customer_id', $customer_id)->update($data);
@@ -104,6 +105,7 @@ class CustomersController extends Controller
 
     public function view_history_order($orderId)
     {
+        if (!Session::get('customer_id')) return redirect('/login-checkout');
         $order_info = DB::table('tbl_order')
             ->join('tbl_customers', 'tbl_order.customer_id', '=', 'tbl_customers.customer_id')
             ->join('tbl_shipping', 'tbl_order.shipping_id', '=', 'tbl_shipping.shipping_id')
@@ -117,7 +119,9 @@ class CustomersController extends Controller
                 'tbl_payment.payment_method'
             )
             ->where('tbl_order.order_id', $orderId)
+            ->where('tbl_order.customer_id', Session::get('customer_id'))
             ->first();
+        if (!$order_info) abort(404);
 
         $order_details = DB::table('tbl_order_details')
             ->join('tbl_product', 'tbl_order_details.product_id', '=', 'tbl_product.product_id')
@@ -144,6 +148,7 @@ class CustomersController extends Controller
         if (!Session::get('customer_id')) {
             return redirect('/login-checkout')->with('error', 'Vui lòng đăng nhập');
         }
+        abort_unless((int) $customer_id === (int) Session::get('customer_id'), 403);
         $edit_customer = DB::table('tbl_customers')->where('customer_id', $customer_id)->first();
 
         if (!$edit_customer) {
@@ -166,6 +171,7 @@ class CustomersController extends Controller
 
    public function customer_update(Request $request, $customer_id)
 {
+    abort_unless(Session::get('customer_id') && (int) $customer_id === (int) Session::get('customer_id'), 403);
     $currentPassword = $request->current_password;
     $newPassword = $request->new_password;
     $confirmNewPassword = $request->confirm_new_password;
@@ -180,7 +186,8 @@ class CustomersController extends Controller
 
         $customer = DB::table('tbl_customers')->where('customer_id', $customer_id)->first();
 
-        if (!$customer || md5($currentPassword) !== $customer->customer_password) {
+        if (!$customer || !(Hash::check((string) $currentPassword, $customer->customer_password) ||
+            (strlen($customer->customer_password) === 32 && hash_equals($customer->customer_password, md5((string) $currentPassword))))) {
             return redirect()->back()->with('message', 'Mật khẩu hiện tại không đúng');
         }
 
@@ -188,7 +195,8 @@ class CustomersController extends Controller
             return redirect()->back()->with('message', 'Mật khẩu mới không khớp');
         }
 
-        $data['customer_password'] = md5($newPassword);
+        if (!$newPassword || strlen($newPassword) < 8) return back()->with('message', 'Mật khẩu mới cần ít nhất 8 ký tự.');
+        $data['customer_password'] = Hash::make($newPassword);
     }
 
     DB::table('tbl_customers')->where('customer_id', $customer_id)->update($data);
