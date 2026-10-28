@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BXT-shopper — bản xem trước tĩnh của trang chủ dự án Laravel ecommerce.">
+  <title>BXT-shopper | Thời trang cho nhịp sống hiện đại</title>
+  <link rel="icon" href="favicon/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="static-demo/style.css">
+  <script src="static-demo/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Bỏ qua đến nội dung chính</a>
+  <div class="demo-ribbon">BẢN DEMO GIAO DIỆN <span aria-hidden="true">·</span> Dự án Laravel chạy đầy đủ khi cài trên máy chủ PHP + MySQL <a href="https://github.com/buithang04/bxt-shopper-laravel-ecommerce#readme">Xem mã nguồn ↗</a></div>
+  <header class="site-header">
+    <div class="topline shell"><span>NEW SEASON / 2026</span><span>THỜI TRANG CHO MỌI CHUYỂN ĐỘNG</span></div>
+    <div class="header-main shell">
+      <a class="brand" href="./" aria-label="BXT-shopper, về đầu trang"><strong>BXT</strong><span>-shopper</span></a>
+      <nav class="header-actions" aria-label="Liên kết tài khoản">
+        <a href="#gioi-thieu-demo">Thanh toán</a>
+        <a href="#gioi-thieu-demo">Giỏ hàng</a>
+        <a href="#gioi-thieu-demo">Đăng nhập</a>
+      </nav>
+    </div>
+    <div class="nav-wrap"><div class="shell nav-row">
+      <nav class="primary-nav" aria-label="Điều hướng chính"><a class="active" href="./">Trang chủ</a><a href="#san-pham">Sản phẩm</a><a href="#bo-suu-tap">Bộ sưu tập</a></nav>
+      <form class="search" role="search" id="search-form"><label class="sr-only" for="search-input">Tìm kiếm sản phẩm</label><input id="search-input" type="search" placeholder="Tìm kiếm sản phẩm" autocomplete="off"><button type="submit">Tìm kiếm</button></form>
+    </div></div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-label="Giới thiệu BXT-shopper">
+      <div class="hero-inner shell">
+        <button class="hero-arrow previous" type="button" aria-label="Slide trước"><span aria-hidden="true">‹</span></button>
+        <div class="hero-copy" aria-live="polite"><p class="eyebrow light" id="hero-kicker">BXT / NEW SEASON</p><h1 id="hero-title">BXT-shopper</h1><h2 id="hero-subtitle">Thiên đường mua sắm</h2><p id="hero-description">Thiên đường mua sắm trực tuyến dành cho mọi nhu cầu! Tại đây, chúng tôi tự hào mang đến nhiều lựa chọn thời trang và phụ kiện từ các thương hiệu được yêu thích.</p><a href="#san-pham" class="hero-cta">Khám phá sản phẩm <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-visual"><img id="hero-image" src="public/frontend/img/girl1.png" alt="Người mẫu thời trang BXT-shopper" width="484" height="441"></div>
+        <button class="hero-arrow next" type="button" aria-label="Slide tiếp theo"><span aria-hidden="true">›</span></button>
+      </div>
+      <div class="hero-dots" role="group" aria-label="Chọn slide"><button class="active" type="button" aria-label="Slide 1" aria-current="true"></button><button type="button" aria-label="Slide 2"></button><button type="button" aria-label="Slide 3"></button></div>
+    </section>
+
+    <section class="intro shell" id="bo-suu-tap"><div><p class="eyebrow">BXT / NEW SEASON</p><h2>Phong cách<br>chuyển động<span class="period">.</span></h2></div><div class="intro-right"><p>Những thiết kế được chọn lọc cho nhịp sống hiện đại — tối giản, tự tin và luôn sẵn sàng.</p><div class="category-links"><button type="button" data-filter="all">Tất cả <span>↗</span></button><button type="button" data-filter="Áo">Áo & thời trang <span>↗</span></button><button type="button" data-filter="Giày">Giày dép <span>↗</span></button><button type="button" data-filter="Phụ kiện">Phụ kiện <span>↗</span></button></div></div></section>
+
+    <section class="products shell" id="san-pham"><div class="section-head"><div><p class="eyebrow">BXT SELECTS</p><h2>Sản phẩm mới nhất</h2></div><span class="product-count" id="product-count">12 sản phẩm</span></div><div class="filter-chips" role="group" aria-label="Lọc sản phẩm"><button type="button" class="selected" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" data-filter="Áo" aria-pressed="false">Áo</button><button type="button" data-filter="Giày" aria-pressed="false">Giày</button><button type="button" data-filter="Phụ kiện" aria-pressed="false">Phụ kiện</button></div><div class="product-grid" id="product-grid"></div><p class="empty-state" id="empty-state" hidden>Không tìm thấy sản phẩm phù hợp. Hãy thử từ khóa khác.</p></section>
+
+    <section class="about-demo" id="gioi-thieu-demo"><div class="shell about-inner"><div><p class="eyebrow light">VỀ DỰ ÁN</p><h2>BXT-shopper</h2><p>Trang này là bản demo tĩnh của giao diện trang chủ. Đăng nhập, giỏ hàng, thanh toán và quản trị cần ứng dụng Laravel cùng cơ sở dữ liệu MySQL.</p></div><a href="https://github.com/buithang04/bxt-shopper-laravel-ecommerce#readme" target="_blank" rel="noopener noreferrer">Xem hướng dẫn chạy dự án <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-inner"><div><a class="brand" href="./"><strong>BXT</strong><span>-shopper</span></a><p>Thời trang cho nhịp sống hiện đại.</p></div><div><span>KHÁM PHÁ</span><a href="#bo-suu-tap">Bộ sưu tập</a><a href="#san-pham">Sản phẩm</a></div><div><span>DỰ ÁN</span><a href="https://github.com/buithang04/bxt-shopper-laravel-ecommerce">GitHub</a><a href="https://github.com/buithang04/bxt-shopper-laravel-ecommerce#readme">Hướng dẫn cài đặt</a></div></div><div class="shell footer-bottom">© 2026 BXT-shopper · Bản demo giao diện</div></footer>
+
+  <dialog id="product-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" aria-label="Đóng chi tiết">×</button><div class="dialog-body"><img id="dialog-image" alt="" width="600" height="600"><div><p class="eyebrow" id="dialog-brand"></p><h2 id="dialog-title"></h2><p class="dialog-price" id="dialog-price"></p><p class="dialog-description">Thiết kế được chọn lọc cho phong cách hằng ngày. Đây là bản xem trước sản phẩm của dự án BXT-shopper.</p><a href="https://github.com/buithang04/bxt-shopper-laravel-ecommerce#readme" target="_blank" rel="noopener noreferrer" class="dialog-link">Xem dự án Laravel ↗</a></div></div></dialog>
+</body>
+</html>
