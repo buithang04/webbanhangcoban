@@ -18,15 +18,32 @@ const products = [
   { name:'Giày Adidas Ultraboost 5', brand:'Adidas', category:'Giày', price:2499000, image:'Giay_Ultraboost_5_DJen_ID8812_HM112.avif' }
 ];
 let slideIndex = 0;
-function showSlide(index) {
-  slideIndex = (index + slides.length) % slides.length;
-  const slide = slides[slideIndex];
+const hero = document.querySelector('.hero');
+const heroImage = document.getElementById('hero-image');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let slideTimer;
+slides.forEach(({ image }) => { const preloadedImage = new Image(); preloadedImage.src = image; });
+function applySlide(index) {
+  const slide = slides[index];
   document.getElementById('hero-kicker').textContent = slide.kicker;
   document.getElementById('hero-title').textContent = slide.title;
   document.getElementById('hero-subtitle').textContent = slide.subtitle;
   document.getElementById('hero-description').textContent = slide.description;
-  document.getElementById('hero-image').src = slide.image;
-  document.querySelectorAll('.hero-dots button').forEach((button, i) => { button.classList.toggle('active', i === slideIndex); if (i === slideIndex) button.setAttribute('aria-current','true'); else button.removeAttribute('aria-current'); });
+  heroImage.src = slide.image;
+  document.querySelectorAll('.hero-dots button').forEach((button, i) => { button.classList.toggle('active', i === index); if (i === index) button.setAttribute('aria-current','true'); else button.removeAttribute('aria-current'); });
+}
+function showSlide(index) {
+  const nextIndex = (index + slides.length) % slides.length;
+  if (nextIndex === slideIndex && !slideTimer) return;
+  slideIndex = nextIndex;
+  window.clearTimeout(slideTimer);
+  if (reducedMotion.matches) { hero.classList.remove('is-exiting'); applySlide(slideIndex); slideTimer = undefined; return; }
+  hero.classList.add('is-exiting');
+  slideTimer = window.setTimeout(() => {
+    applySlide(slideIndex);
+    hero.classList.remove('is-exiting');
+    slideTimer = undefined;
+  }, 220);
 }
 document.querySelector('.hero-arrow.previous').addEventListener('click', () => showSlide(slideIndex - 1));
 document.querySelector('.hero-arrow.next').addEventListener('click', () => showSlide(slideIndex + 1));
