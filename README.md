@@ -11,7 +11,7 @@ BXT-shopper sử dụng giao diện tối giản đen–trắng, typography th�
 ### 1. Clone project
 
 ```bash
-git clone https://github.com/buithang04/webbanhangcoban.git
+git clone https://github.com/buithang04/bxt-shopper-laravel-ecommerce.git webbanhangcoban
 cd webbanhangcoban
 ```
 
@@ -97,5 +97,5 @@ php artisan test
 
 **buithang04**
 
-Repository: [github.com/buithang04/webbanhangcoban](https://github.com/buithang04/webbanhangcoban)
+Repository: [github.com/buithang04/bxt-shopper-laravel-ecommerce](https://github.com/buithang04/bxt-shopper-laravel-ecommerce)
 
