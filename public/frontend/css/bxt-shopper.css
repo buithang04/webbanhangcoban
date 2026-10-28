@@ -339,7 +339,7 @@ body { font-size: 15px; line-height: 1.6; }
 #slider .carousel-inner > .item {
   left: 0 !important;
   transform: translate3d(0, 0, 0);
-  transition: transform .62s cubic-bezier(.22, 1, .36, 1);
+  transition: transform .52s cubic-bezier(.25, .8, .25, 1);
 }
 #slider .carousel-inner > .next { transform: translate3d(100%, 0, 0); }
 #slider .carousel-inner > .prev { transform: translate3d(-100%, 0, 0); }

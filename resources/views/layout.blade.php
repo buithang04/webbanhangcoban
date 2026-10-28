@@ -20,7 +20,7 @@
 <link href="{{ asset('public/frontend/css/lightslider.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/prettify.css') }}?v={{ time() }}" rel="stylesheet">
 <link href="{{ asset('public/frontend/css/lightgallery.min.css') }}?v={{ time() }}" rel="stylesheet">
-<link href="{{ asset('public/frontend/css/bxt-shopper.css') }}?v=12" rel="stylesheet">
+<link href="{{ asset('public/frontend/css/bxt-shopper.css') }}?v=13" rel="stylesheet">
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>

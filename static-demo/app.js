@@ -73,13 +73,14 @@ function showSlide(index) {
   heroCopy.inert = true;
   heroInner.append(incomingCopy, incomingVisual);
 
-  const distance = direction * 100;
-  const timing = { duration: 620, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'forwards' };
+  // Move both halves by the full banner width so the outgoing image leaves the viewport.
+  const distance = direction * heroInner.getBoundingClientRect().width;
+  const timing = { duration: 520, easing: 'cubic-bezier(.25, .8, .25, 1)', fill: 'forwards' };
   slideAnimations = [
-    heroCopy.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${-distance}%)` }], timing),
-    heroVisual.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${-distance}%)` }], timing),
-    incomingCopy.animate([{ transform: `translateX(${distance}%)` }, { transform: 'translateX(0)' }], timing),
-    incomingVisual.animate([{ transform: `translateX(${distance}%)` }, { transform: 'translateX(0)' }], timing)
+    heroCopy.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${-distance}px)` }], timing),
+    heroVisual.animate([{ transform: 'translateX(0)' }, { transform: `translateX(${-distance}px)` }], timing),
+    incomingCopy.animate([{ transform: `translateX(${distance}px)` }, { transform: 'translateX(0)' }], timing),
+    incomingVisual.animate([{ transform: `translateX(${distance}px)` }, { transform: 'translateX(0)' }], timing)
   ];
   slideTimer = window.setTimeout(() => {
     applySlide(slideIndex);
@@ -89,7 +90,7 @@ function showSlide(index) {
     slideAnimations = [];
     heroCopy.inert = false;
     slideTimer = undefined;
-  }, timing.duration);
+  }, timing.duration + 40);
 }
 document.querySelector('.hero-arrow.previous').addEventListener('click', () => showSlide(slideIndex - 1));
 document.querySelector('.hero-arrow.next').addEventListener('click', () => showSlide(slideIndex + 1));
